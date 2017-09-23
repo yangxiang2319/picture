@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+
+    <contextName>picture</contextName>
+
+	<property name="USER_HOME" value="logs" />
+	<property scope="context" name="FILE_NAME" value="picture" />
+	<timestamp key="byDay" datePattern="yyyy-MM-dd" />
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %replace(%caller{1}){"^(Caller[+]0\t at )|(\r?\n)$",""} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${USER_HOME}/${byDay}/${FILE_NAME}-${byDay}.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>${USER_HOME}/${byDay}/${FILE_NAME}-${byDay}-%i.zip</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>10</maxIndex>
+		</rollingPolicy>
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>50MB</maxFileSize>
+		</triggeringPolicy>
+		<encoder>
+			<pattern>%d [%thread] %-5level %replace(%caller{1}){"^(Caller[+]0\t at )|(\r?\n)$",""} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- <logger name="com.wx.mobilesecurity" level="debug" additivity="true">
+	</logger> -->
+  
+	<root level="info">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="file" />
+	</root>
+</configuration>

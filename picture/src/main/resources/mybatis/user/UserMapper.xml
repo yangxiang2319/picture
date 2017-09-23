@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yangx.picture.dao.user.UserMapper" >
+ <select id="getUserInfo" resultType ="com.yangx.picture.domain.user.UserInfo">
+   select
+   username,
+   password
+   from
+   user_info
+ </select>
+ <select id="hasUsername" resultType="java.lang.Integer">
+   select
+   count(*)
+   from 
+   user_info
+   where
+   username = #{username}
+ </select>
+ <insert id="insertUser" parameterType="com.yangx.picture.domain.user.UserInfo">
+   insert
+   into
+   user_info
+   (username,password)
+   values
+   (#{username},#{password})
+ </insert>
+</mapper>
